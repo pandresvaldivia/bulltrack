@@ -3,7 +3,7 @@ import prisma from '@/modules/shared/lib/prisma/prisma';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-const handler = NextAuth({
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: 'credentials',
@@ -33,9 +33,11 @@ const handler = NextAuth({
 
         if (user && user.password) {
           if (isValidPassword) {
-            const { password, ...userWithoutPassword } = user;
-
-            return userWithoutPassword;
+            return {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+            };
           }
         }
 
@@ -43,9 +45,25 @@ const handler = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }: { token: any; user?: any }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }: { session: any; token: any }) {
+      if (token && session.user) {
+        session.user.id = token.id as string;
+      }
+      return session;
+    },
+  },
   pages: {
     signIn: '/login',
   },
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
