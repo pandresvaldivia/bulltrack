@@ -1,0 +1,63 @@
+generator client {
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  extensions = [pgcrypto]
+}
+
+model Bull {
+  id                     String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tag                    String     @unique
+  name                   String
+  use                    BullUse
+  origin                 BullOrigin
+  coatColor              CoatColor  @map("coat_color")
+  breed                  Breed
+  ageMonths              Int        @map("age_months")
+  featuredCharacteristic String?    @map("featured_characteristic")
+  stats                  BullStats?
+  createdAt              DateTime   @default(now()) @map("created_at")
+  updatedAt              DateTime   @updatedAt @map("updated_at")
+
+  @@map("bulls")
+}
+
+model BullStats {
+  id           String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  growth       Int
+  calvingEase  Int    @map("calving_ease")
+  reproduction Int
+  moderation   Int
+  carcass      Int
+  bull         Bull   @relation(fields: [bullId], references: [id], onDelete: Cascade)
+  bullId       String @unique @map("bull_id") @db.Uuid
+
+  @@index([bullId])
+  @@map("bull_stats")
+}
+
+enum BullUse {
+  heifer
+  cow
+}
+
+enum BullOrigin {
+  own
+  catalog
+}
+
+enum CoatColor {
+  black
+  red
+}
+
+enum Breed {
+  Angus
+  Brangus
+  Hereford
+  Braford
+}

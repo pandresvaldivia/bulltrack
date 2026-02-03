@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"],
+      "@icons": ["./src/modules/shared/components/icon/index.ts"]
     }
   },
   "include": [
