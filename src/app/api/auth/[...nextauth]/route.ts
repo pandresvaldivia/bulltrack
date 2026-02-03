@@ -1,5 +1,5 @@
-import { compareEncrypted } from '@/modules/shared/lib/encryption/helpers/encrypt';
-import prisma from '@/modules/shared/lib/prisma/prisma';
+import { compareEncrypted } from '@/modules/lib/encryption/helpers/encrypt';
+import prisma from '@/modules/lib/prisma/prisma';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
