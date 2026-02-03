@@ -1,3 +1,4 @@
+import { encrypt } from '../encryption/helpers/encrypt';
 import prisma from './prisma';
 
 async function main() {
@@ -5,6 +6,17 @@ async function main() {
 
   await prisma.bullStats.deleteMany();
   await prisma.bull.deleteMany();
+  await prisma.user.deleteMany();
+
+  const defaultPassword = await encrypt('seed28');
+
+  await prisma.user.create({
+    data: {
+      name: 'Admin',
+      email: 'admin@seed28.com',
+      password: defaultPassword,
+    },
+  });
 
   const bulls = [
     {
@@ -148,7 +160,7 @@ async function main() {
     });
   }
 
-  console.log(`✓ Seeded ${bulls.length} bulls`);
+  console.log(`Seeded ${bulls.length} bulls`);
 }
 
 main()
