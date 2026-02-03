@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+@custom-variant dark (&:is(.dark *));
+
 @theme {
   --color-*: initial;
   --color-white: #ffffff;
@@ -25,6 +27,8 @@
 
   --font-sans: var(--font-inter);
   --text-tiny: 0.75rem;
+
+  --radius-5xl: 2.5rem;
 }
 
 body {

@@ -5,7 +5,7 @@
   "tsx": true,
   "tailwind": {
     "config": "",
-    "css": "src/modules/shared/styles/tailwind.css",
+    "css": "src/ui/shared/styles/tailwind.css",
     "baseColor": "neutral",
     "cssVariables": true,
     "prefix": ""
@@ -14,10 +14,10 @@
   "rtl": false,
   "aliases": {
     "components": "@/ui/shadcn/components",
-    "utils": "@/modules/shared/lib/shadcn",
+    "utils": "@/modules/lib/shadcn/helpers",
     "ui": "@/ui/shadcn/components",
-    "lib": "@/modules/shared/lib/shadcn",
-    "hooks": "@/modules/shared/lib/shadcn"
+    "lib": "@/modules/lib/shadcn/helpers",
+    "hooks": "@/modules/lib/shadcn/hooks"
   },
   "registries": {}
 }

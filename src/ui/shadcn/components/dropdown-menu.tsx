@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { DropdownMenu as DropdownMenuPrimitive } from 'radix-ui';
 
-import { cn } from '@/modules/lib/shadcn/utils';
+import { cn } from '@/modules/lib/shadcn/helpers/utils';
 
 function DropdownMenu({
   ...props
