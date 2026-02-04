@@ -45,7 +45,7 @@ export function BullsListItem({ bull, index }: Props) {
       <Divider orientation='vertical' className='bg-gray-bright mx-6' />
       <BullStat bull={bull} />
       <Divider orientation='vertical' className='bg-gray-bright mx-6' />
-      <BullActions />
+      <BullActions bullId={bull.id} isFavorite={bull.isFavorite} />
     </li>
   );
 }

@@ -96,6 +96,7 @@ export async function getBulls(params: {
     skip,
     take: pageSize,
   });
+  console.log({ bulls });
 
   let bullsWithScore: Bull[] = bulls.map((bull) => ({
     id: bull.id,
