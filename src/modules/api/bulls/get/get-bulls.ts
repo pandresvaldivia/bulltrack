@@ -5,24 +5,25 @@ import { Prisma } from '@/generated/prisma/client';
 import {
   BullFilters,
   BullPagination,
-  BullsListResponse,
   BullSortBy,
   BullWithScore,
 } from './types';
 import { calculateBullScore } from '@/modules/core/helpers/bulls/stats';
+import { mapBullStatsToStats } from '@/modules/bull/mappers/bull';
+import { Bull, BullList } from '@/modules/bull/interfaces/bull';
 
 /**
  * Gets a list of bulls based on filters, pagination, and sorting.
  * @param params.filters - Filtering options for the bulls.
  * @param params.pagination - Pagination options (page number and page size).
  * @param params.sortBy - Sorting option for the bulls.
- * @returns A promise that resolves to a BullsListResponse containing the bulls and pagination info.
+ * @returns A promise that resolves to a BullList containing the bulls and pagination info.
  */
 export async function getBulls(params: {
   filters?: BullFilters;
   pagination?: BullPagination;
   sortBy?: BullSortBy;
-}): Promise<BullsListResponse> {
+}): Promise<BullList> {
   const {
     filters = {},
     pagination = { page: 1, pageSize: 20 },
@@ -96,8 +97,7 @@ export async function getBulls(params: {
     take: pageSize,
   });
 
-  // Transform the data and calculate the bull score
-  let bullsWithScore: BullWithScore[] = bulls.map((bull) => ({
+  let bullsWithScore: Bull[] = bulls.map((bull) => ({
     id: bull.id,
     tag: bull.tag,
     name: bull.name,
@@ -106,15 +106,12 @@ export async function getBulls(params: {
     coatColor: bull.coatColor,
     breed: bull.breed,
     ageMonths: bull.ageMonths,
-    featuredCharacteristic: bull.featuredCharacteristic,
+    featuredCharacteristic: bull.featuredCharacteristic ?? '',
     bullScore: calculateBullScore(bull.stats),
     isFavorite: userId ? bull.favoritedBy.length > 0 : false,
-    stats: bull.stats,
-    createdAt: bull.createdAt,
-    updatedAt: bull.updatedAt,
+    stats: mapBullStatsToStats(bull.stats as any),
   }));
 
-  // Sort by bull score
   if (sortBy === 'score-high') {
     bullsWithScore = bullsWithScore.sort((a, b) => b.bullScore - a.bullScore);
   } else {

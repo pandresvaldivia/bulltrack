@@ -54,7 +54,7 @@ function DropdownMenuItem({
       data-slot='dropdown-menu-item'
       data-inset={inset}
       className={cn(
-        "text-tiny font-semibold text-gray-medium relative flex cursor-default items-center gap-2 rounded-sm px-5 py-2 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "text-xs font-semibold text-gray-medium relative flex cursor-default items-center gap-2 rounded-sm px-5 py-2 outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}

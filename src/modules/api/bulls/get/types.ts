@@ -45,13 +45,3 @@ export type BullStats = {
   moderation: number;
   carcass: number;
 };
-
-export type BullsListResponse = {
-  bulls: BullWithScore[];
-  pagination: {
-    page: number;
-    pageSize: number;
-    totalCount: number;
-    totalPages: number;
-  };
-};

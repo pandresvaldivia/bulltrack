@@ -1,0 +1,13 @@
+.main {
+  --progress-limit: 100;
+
+  background-image: linear-gradient(
+    to right,
+    var(--color-green-lighter) 0%,
+    var(--color-green-lighter)
+      calc((var(--progress-value) / var(--progress-limit)) * 100%),
+    var(--color-gray-alt)
+      calc((var(--progress-value) / var(--progress-limit)) * 100%),
+    var(--color-gray-alt) 100%
+  );
+}

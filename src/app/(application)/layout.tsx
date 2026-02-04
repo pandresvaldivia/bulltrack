@@ -14,7 +14,7 @@ export default function ApplicationLayout({
       <Sidebar className={layoutStyles.sidebar} />
       <main
         className={cn(
-          'rounded-t-5xl bg-gray-lighter h-full',
+          'rounded-t-5xl bg-gray-lighter h-full text-gray-medium p-8',
           layoutStyles.content,
         )}
       >
